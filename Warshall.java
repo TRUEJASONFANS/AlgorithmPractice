@@ -1,10 +1,10 @@
 /**
- * ����ͼ�ڽӾ����ж�����֮���Ƿ���ͨ��ͨ��warshall�㷨ʵ��.
- * �㷨������ͨ����ͼ�Ĵ��ݱհ�����Ϊ���ݱհ���
- * ������r[i,j]=0,����kʹ,r[i,k]=1,r[k,j]=1��r[i,j]��Rk�Ĵ��ݱհ��пɴr[i,j]��Ϊ1
- * ������rn�׵Ĵ��ݱհ��еļ�����������������r[i,j]=1��rn-1�ױհ���Ϊ1������Ϊ1.
- * ����k��������r[i,k]=1,r[k,j]=1,��r[i,j]=1��k�״��ݱհ���
- * α����
+ * 无相图邻接矩阵，判断亮点之间是否相通，通过warshall算法实现.
+ * 算法核心是通过求图的传递闭包，何为传递闭包。
+ * 假设有r[i,j]=0,存在k使,r[i,k]=1,r[k,j]=1则r[i,j]在Rk的传递闭包中可达。r[i,j]置为1
+ * 所有在rn阶的传递闭包中的计算中有两点规则，如果r[i,j]=1在rn-1阶闭包中为1，则仍为1.
+ * 加入k后，若存在r[i,k]=1,r[k,j]=1,则r[i,j]=1在k阶传递闭包中
+ * 伪代码
  * R(0) <- A
  * for k <- 1 to n do
  *  for j <- 1 to n do
@@ -25,7 +25,7 @@ public class Warshall{
 	                {1,0,1,0}
 	        };
 	        warShall(AdjMat);
-	        System.out.println("������ﴫ�ݱհ��ľ���\n");
+	        System.out.println("输出表达传递闭包的矩阵：\n");
 	        for(int i = 0;i < AdjMat.length;i++)
 	        {
 	            for(int j = 0;j < AdjMat.length;j++)
@@ -49,7 +49,7 @@ public class Warshall{
 	
 }
 /**
- * ��warshall���������Ƶ�������ͼ��(������Ϊ�����Ļ�·)��������֮�����·����Floyd�㷨,α������warshall������,
+ * 与warshall方法相类似的在无向图中(不存在为负数的回路)计算亮点之间最短路径的Floyd算法,伪代码与warshall相类似,
  * @author jason
  * FLoyd(w[1..n,1..n])
  * d = w
@@ -57,10 +57,10 @@ public class Warshall{
  * 	for i <- 1 to n
  * 	 for j <- 1  to n
  * 		d[i][j] = min(d[i][j],d[i,k]+d[k,j])
- * ʵ�ּ�����ȫ·���ĵ�floyd�㷨
- * ���룺ͼ��Ȩ�ؾ��� W
+ * 实现计算完全路径的的floyd算法
+ * 输入：图的权重矩阵 W
  * 
- * ������������·�����ȵľ������
+ * 输出：包含最短路径长度的距离矩阵
  */
 class Floyd{
 	public static void floyd(int [][] matrix){
