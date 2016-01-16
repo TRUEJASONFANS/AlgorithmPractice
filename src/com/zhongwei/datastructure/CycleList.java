@@ -6,13 +6,13 @@ import com.google.common.collect.Lists;
 
 public class CycleList<T> {
 
-	private static int len = 2;
+	private final int len;
 	private int head = 0;
 	private int tail = 0;
 	private int curLen = 0;
 
 	private final List<T> array = Lists.newArrayList();
-	private final int[] fArray = new int[len];
+	private final int[] fArray;
 
 	public boolean enQueue(T t) throws Exception {
 		if (!full()) {
@@ -22,7 +22,7 @@ public class CycleList<T> {
 			curLen++;
 			return true;
 		} else {
-			throw new Exception("the list do not contain any element");
+			throw new Exception("the list is full");
 		}
 	}
 
@@ -55,11 +55,16 @@ public class CycleList<T> {
 		}
 	}
 	
+	public CycleList(int l) {
+		super();
+		len = l;
+		fArray = new int[len];
+	}
+
 	public static void main(String[] args) throws Exception {
-		CycleList<Integer> cycleList = new CycleList<>();
+		CycleList<Integer> cycleList = new CycleList<Integer>(3);
 		cycleList.enQueue(2);
 		cycleList.enQueue(3);
-		cycleList.deQueue();
 		cycleList.enQueue(4);
 		cycleList.traverse();
 	}
